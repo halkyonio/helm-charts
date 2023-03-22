@@ -24,5 +24,5 @@ update-charts:
 update-index:
 	cd $(DESTINATION_FOLDER)
 	rm -f index-cache.yaml
-	helm repo index --url https://halkyonio.github.io/primaza-helm --merge index.yaml .
+	helm repo index --url https://halkyonio.github.io/helm-charts --merge index.yaml .
 	cd $(CURRENT_FOLDER)

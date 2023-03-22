@@ -11,6 +11,6 @@ entries:
     digest: af7c123719eecc9ceed92a04de8d27cbd9211bb882a88b8edabce2132e567bc9
     name: primaza-app
     urls:
-    - https://halkyonio.github.io/primaza-helm/charts/primaza-app-0.0.1-SNAPSHOT.tgz
+    - https://halkyonio.github.io/helm-charts/charts/primaza-app-0.0.1-SNAPSHOT.tgz
     version: 0.0.1-SNAPSHOT
 generated: "2023-03-22T14:53:07.78570295Z"
