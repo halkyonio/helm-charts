@@ -9,15 +9,15 @@ Table of Contents
 # Introduction
 
 This project aims to :
-- Host the [Primaza Helm repository](http://halkyonio.github.io/primaza-helm/index.yaml) that contains [the Primaza App](https://github.com/halkyonio/primaza-poc) Helm charts,
+- Host the [Primaza Helm repository](http://halkyonio.github.io/helm-charts/index.yaml) that contains [the Primaza App](https://github.com/halkyonio/primaza-poc) Helm charts,
 - Usage section where users can learn about how installing Primaza using Helm.
 
 # Repository
 
-This repository uses GitHub Pages to publish the Helm charts index at this address: [http://halkyonio.github.io/primaza-helm](http://halkyonio.github.io/primaza-helm). To use it locally, you need to execute:
+This repository uses GitHub Pages to publish the Helm charts index at this address: [http://halkyonio.github.io/helm-charts](http://halkyonio.github.io/helm-charts). To use it locally, you need to execute:
 
 ```console
-$ helm repo add primaza http://halkyonio.github.io/primaza-helm
+$ helm repo add halkyonio http://halkyonio.github.io/helm-charts
 ```
 
 And confirm that the snowdrop repository is listed:
@@ -25,7 +25,7 @@ And confirm that the snowdrop repository is listed:
 ```console
 $ helm repo list
 NAME           	URL                               
-primaza	    http://halkyonio.github.io/primaza-helm
+halkyonio	    http://halkyonio.github.io/helm-charts
 ```
 
 ## List of charts available
@@ -52,6 +52,6 @@ To install it, you need to:
 For example:
 
 ```console
-$ helm install primaza-app primaza/primaza-app --set app.image=quay.io/halkyonio/primaza-app:0.0.1-SNAPSHOT --set app.ingress.host=XXX
+$ helm install primaza-app halkyonio/primaza-app --set app.image=quay.io/halkyonio/primaza-app:0.0.1-SNAPSHOT --set app.ingress.host=XXX
 ```
 
