@@ -52,6 +52,5 @@ To install it, you need to:
 For example:
 
 ```console
-$ helm install primaza-app halkyonio/primaza-app --set app.image=quay.io/halkyonio/primaza-app:0.0.1-SNAPSHOT --set app.ingress.host=XXX
+$ helm install primaza-app halkyonio/primaza-app --devel --set app.image=quay.io/halkyonio/primaza-app:0.0.1-SNAPSHOT --set app.ingress.host=XXX
 ```
-
