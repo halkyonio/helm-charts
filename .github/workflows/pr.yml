@@ -1,0 +1,40 @@
+name: Primaza Helm Repository Pull Request Build
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  verify-in-kubernetes:
+    name: Verify in Kubernetes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Kubernetes KinD Cluster
+        uses: container-tools/kind-action@v1
+        with:
+          version: v0.11.1
+          registry: true
+
+      - name: Start Helm Repository (ChartMuseum)
+        run: docker run --rm -u 0 -it -d -p 8080:8080 -e DEBUG=1 -e STORAGE=local -e STORAGE_LOCAL_ROOTDIR=/charts -v $(pwd)/charts:/charts chartmuseum/chartmuseum:latest
+
+      - name: Start Primaza
+        run: .github/install_primaza.sh
+
+      - name: Register Kind cluster in Primaza
+        run: .github/register_local_kind_cluster_in_primaza.sh kube-system,sb
+
+      - name: Create Postgresql Service in Primaza
+        run: |
+          # First, we install Postgresql via Helm.
+          helm repo add bitnami https://charts.bitnami.com/bitnami
+          helm install postgresql bitnami/postgresql --version 11.9.1 --set auth.username=superman --set auth.password=superman
+          ## the service endpoint should be: "tcp:5432"
+
+          # Next, we register the Postgresql service in Primaza
+          .github/register_service_in_primaza.sh postgresql 11 tcp:5432 postgresql
+
+      - name: (Only if it failed) Log Primaza traces at failures
+        if: failure()
+        run: .github/print_primaza_logs.sh
