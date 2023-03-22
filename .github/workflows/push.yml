@@ -2,12 +2,16 @@ name: Primaza Update Index
 
 on:
   workflow_dispatch:
+  schedule:
+    # 2am every weekday + saturday
+    - cron: '0 2 * * 1-6'
   push:
     branches: [ main ]
     paths-ignore:
       - '**/README.md'
       - 'index.yaml'
       - 'charts/**'
+      - '.github/**'
       - 'repository/**'
 
 jobs:
