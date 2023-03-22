@@ -32,11 +32,26 @@ primaza	    http://halkyonio.github.io/primaza-helm
 
 | Chart Name                                                             | Description | Source |
 |------------------------------------------------------------------------|-------------| ------ |
-| [spring-boot-example-app](#spring-boot-example-app)                    | Chart to be used to create a Spring Boot application | [repository/spring-boot-example-app](repository/spring-boot-example-app) |
+| [primaza-app](#primaza-app)                    | Chart to start [the Primaza backend](https://github.com/halkyonio/primaza-poc) | [https://github.com/halkyonio/primaza-poc](https://github.com/halkyonio/primaza-poc) |
 
 ## Usage
 
 Requirements:
 - Connected/logged to a Kubernetes/OpenShift cluster
 - Have installed [the Helm command line](https://helm.sh/docs/intro/install/)
-TODO
+- Have installed/updated [the Primaza Helm repository](#repository)
+
+### primaza-app
+
+This chart deploys and exposes the Primaza backend on Kubernetes including a Postgresql database.
+
+To install it, you need to:
+- Set the Primaza application image you want to use. You can see all the versions in [here](quay.io/halkyonio/primaza-app).
+- Set the ingress host. Only if you want to publicly expose the application.
+
+For example:
+
+```console
+$ helm install primaza-app primaza/primaza-app --set app.image=quay.io/halkyonio/primaza-app:0.0.1-SNAPSHOT --set app.ingress.host=XXX
+```
+

@@ -2,15 +2,15 @@ apiVersion: v1
 entries:
   primaza-app:
   - apiVersion: v2
-    created: "2023-03-22T10:07:33.225422262Z"
+    created: "2023-03-22T13:02:46.717935226+01:00"
     dependencies:
     - alias: db
       name: postgresql
       repository: https://charts.bitnami.com/bitnami
       version: 11.9.1
-    digest: bbec5e1f55719500f1ab0ef8fe697595cd2c889e23f67c51401064ed448156ca
+    digest: 665412fc19e4391386f3f5497d36c6ca4e61bf723df47a065c0d4ce3bc4a95b6
     name: primaza-app
     urls:
     - https://halkyonio.github.io/primaza-helm/charts/primaza-app-0.0.1-SNAPSHOT.tgz
     version: 0.0.1-SNAPSHOT
-generated: "2023-03-22T10:07:33.217601552Z"
+generated: "2023-03-22T13:02:46.710435547+01:00"
