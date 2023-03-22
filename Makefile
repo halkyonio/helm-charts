@@ -11,7 +11,7 @@ update-charts:
 	git clone https://github.com/halkyonio/primaza-poc $$repoFolder; \
 	cd $$repoFolder; \
 	git checkout $(branch); \
-	mvn clean install -DskipTests -Pkubernetes; \
+	mvn clean install -DskipTests -Pkubernetes -Dquarkus.kubernetes.ingress.host=primaza.io; \
 	chartFolder=$$repoFolder/app/target/helm/kubernetes/$$chart; \
 	cd $(CURRENT_FOLDER); \
 	echo Chart $$chart ; \
