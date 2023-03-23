@@ -20,12 +20,26 @@ This repository uses GitHub Pages to publish the Helm charts index at this addre
 $ helm repo add halkyonio http://halkyonio.github.io/helm-charts
 ```
 
+If you have already registered the reporitory, but you want to update it, you need to execute:
+
+```console
+$ helm repo update halkyonio
+```
+
 And confirm that the snowdrop repository is listed:
 
 ```console
 $ helm repo list
 NAME           	URL                               
 halkyonio	    http://halkyonio.github.io/helm-charts
+```
+
+Also, you can see the list of charts available in the repository by doing:
+
+```console
+$ helm search repo halkyonio
+NAME                 	  CHART VERSION 	APP VERSION 	DESCRIPTION
+halkyonio/primaza-app	  0.0.1	 
 ```
 
 ## List of charts available
@@ -52,5 +66,7 @@ To install it, you need to:
 For example:
 
 ```console
-$ helm install primaza-app halkyonio/primaza-app --devel --set app.image=quay.io/halkyonio/primaza-app:0.0.1-SNAPSHOT --set app.ingress.host=XXX
+$ helm install primaza-app halkyonio/primaza-app --set app.image=quay.io/halkyonio/primaza-app:latest --set app.host=XXX
 ```
+
+Note that if you change the chart name to something different of `primaza-app`, for example, to `my-app`, you also need to update the environmental property accordingly, by setting `--set app.envs.DB_SERVICE_NAME=my-app-db`

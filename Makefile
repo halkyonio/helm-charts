@@ -6,16 +6,19 @@ DESTINATION_FOLDER := "charts/"
 .PHONY: update-charts
 update-charts:
 	chart="primaza-app"; \
+	gitRepo=https://github.com/halkyonio/primaza-poc; \
 	repoFolder=$(PWD)/repository/$$chart; \
+	chartFolder=$$repoFolder/app/target/helm/kubernetes/$$chart; \
 	rm -rf $$repoFolder; \
-	git clone https://github.com/halkyonio/primaza-poc $$repoFolder; \
+	git clone $$gitRepo $$repoFolder; \
 	cd $$repoFolder; \
 	git checkout $(branch); \
-	mvn clean install -DskipTests -Pkubernetes -Dquarkus.kubernetes.ingress.host=primaza.io; \
-	chartFolder=$$repoFolder/app/target/helm/kubernetes/$$chart; \
+	gitCommit=`git rev-parse HEAD`; \
+	mvn clean install -Dgit.sha.commit=$$gitCommit -Dgithub.repo=$$gitRepo -DskipTests -Pkubernetes -Dquarkus.kubernetes.ingress.host=primaza.io; \
+	chartVersion=`grep '^version:' $$chartFolder/Chart.yaml | awk '{print $2}' | sed -e 's/-SNAPSHOT//g' | sed -e 's/version: //g'` ; \
 	cd $(CURRENT_FOLDER); \
-	echo Chart $$chart ; \
-	helm package $$chartFolder --dependency-update -d $(DESTINATION_FOLDER) ; \
+	echo Chart $$chart - $$chartVersion; \
+	helm package $$chartFolder --dependency-update --version $$chartVersion -d $(DESTINATION_FOLDER) ; \
 	rm -rf $$repoFolder; \
 
 	make update-index
