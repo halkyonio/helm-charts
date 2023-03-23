@@ -1,10 +1,9 @@
-name: Primaza Update Index
+name: Primaza Update Charts
 
 on:
   workflow_dispatch:
-  schedule:
-    # 2am every weekday + saturday
-    - cron: '0 2 * * 1-6'
+  repository_dispatch:
+    types: [update_charts]
   push:
     branches: [ main ]
     paths-ignore:
