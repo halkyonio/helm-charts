@@ -16,7 +16,7 @@ update-fruits-app-chart:
 	chart="fruits-app"; \
 	gitRepo=https://github.com/halkyonio/atomic-fruits-service; \
 	repoFolder=$(PWD)/repository/$$chart; \
-	chartFolder=$$repoFolder/app/target/helm/kubernetes/$$chart; \
+	chartFolder=$$repoFolder/target/helm/kubernetes/$$chart; \
 	rm -rf $$repoFolder; \
 	git clone $$gitRepo $$repoFolder; \
 	cd $$repoFolder; \
