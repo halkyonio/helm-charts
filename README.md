@@ -47,6 +47,7 @@ halkyonio/primaza-app	  0.0.1
 | Chart Name                                                             | Description | Source |
 |------------------------------------------------------------------------|-------------| ------ |
 | [primaza-app](#primaza-app)                    | Chart to start [the Primaza backend](https://github.com/halkyonio/primaza-poc) | [https://github.com/halkyonio/primaza-poc](https://github.com/halkyonio/primaza-poc) |
+| [fruits-app](#fruits-app)                    | Chart to start [the Atomic Fruits Service](https://github.com/halkyonio/atomic-fruits-service) | [https://github.com/halkyonio/atomic-fruits-service](https://github.com/halkyonio/atomic-fruits-service) |
 
 ## Usage
 
@@ -60,7 +61,7 @@ Requirements:
 This chart deploys and exposes the Primaza backend on Kubernetes including a Postgresql database.
 
 To install it, you need to:
-- Set the Primaza application image you want to use. You can see all the versions in [here](quay.io/halkyonio/primaza-app).
+- Set the container image you want to use. You can see all the versions in [here](quay.io/halkyonio/primaza-app).
 - Set the ingress host. Only if you want to publicly expose the application.
 
 For example:
@@ -70,3 +71,19 @@ $ helm install primaza-app halkyonio/primaza-app --set app.image=quay.io/halkyon
 ```
 
 Note that if you change the chart name to something different of `primaza-app`, for example, to `my-app`, you also need to update the environmental property accordingly, by setting `--set app.envs.DB_SERVICE_NAME=my-app-db`
+
+### fruits-app
+
+This chart deploys and exposes the Atomic Fruits service on Kubernetes including a Postgresql database.
+
+To install it, you need to:
+- Set the container image you want to use. You can see all the versions in [here](quay.io/halkyonio/atomic-fruits).
+- Set the ingress host. Only if you want to publicly expose the application.
+
+For example:
+
+```console
+$ helm install fruits-app halkyonio/fruits-app --set app.image=quay.io/halkyonio/atomic-fruits:latest --set app.host=XXX
+```
+
+Note that if you change the chart name to something different of `fruits-app`, for example, to `my-app`, you also need to update the environmental property accordingly, by setting `--set app.envs.DB_SERVICE_NAME=my-app-db`
