@@ -1,4 +1,4 @@
-name: Primaza Update Charts
+name: Update Charts
 
 on:
   workflow_dispatch:

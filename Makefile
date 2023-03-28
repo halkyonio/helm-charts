@@ -5,6 +5,32 @@ DESTINATION_FOLDER := "charts/"
 # Example: make update-charts branch=main
 .PHONY: update-charts
 update-charts:
+	make update-primaza-app-chart branch=$(branch)
+	make update-fruits-app-chart branch=$(branch)
+
+	make update-index
+
+# Example: make update-fruits-app-chart branch=main
+.PHONY: update-fruits-app-chart
+update-fruits-app-chart:
+	chart="fruits-app"; \
+	gitRepo=https://github.com/halkyonio/atomic-fruits-service; \
+	repoFolder=$(PWD)/repository/$$chart; \
+	chartFolder=$$repoFolder/app/target/helm/kubernetes/$$chart; \
+	rm -rf $$repoFolder; \
+	git clone $$gitRepo $$repoFolder; \
+	cd $$repoFolder; \
+	git checkout $(branch); \
+	mvn clean install -DskipTests -Dquarkus.profile=helm; \
+	chartVersion=`grep '^version:' $$chartFolder/Chart.yaml | awk '{print $2}' | sed -e 's/-SNAPSHOT//g' | sed -e 's/version: //g'` ; \
+	cd $(CURRENT_FOLDER); \
+	echo Chart $$chart - $$chartVersion; \
+	helm package $$chartFolder --dependency-update --version $$chartVersion -d $(DESTINATION_FOLDER) ; \
+	rm -rf $$repoFolder; \
+
+# Example: make update-primaza-app-chart branch=main
+.PHONY: update-primaza-app-chart
+update-primaza-app-chart:
 	chart="primaza-app"; \
 	gitRepo=https://github.com/halkyonio/primaza-poc; \
 	repoFolder=$(PWD)/repository/$$chart; \
@@ -20,8 +46,6 @@ update-charts:
 	echo Chart $$chart - $$chartVersion; \
 	helm package $$chartFolder --dependency-update --version $$chartVersion -d $(DESTINATION_FOLDER) ; \
 	rm -rf $$repoFolder; \
-
-	make update-index
 
 .PHONY: update-index
 update-index:
