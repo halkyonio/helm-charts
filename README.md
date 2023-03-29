@@ -92,4 +92,4 @@ You can disable the installation of the Postgresql database by using `--set db.e
 
 > **Important**: Note that if you change the chart name to something different of `fruits-app`, for example, to `my-app`, you also need to update the environmental property accordingly, by setting `--set app.envs.DB_SERVICE_NAME=my-app-db`
 
-Finally, you can also disable the Service Binding discovery by using `--set app.service-binding.enabled=false`.
+Finally, you can also disable the Service Binding discovery by using `--set app.serviceBinding.enabled=false`.
