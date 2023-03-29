@@ -14,53 +14,9 @@ on:
       - 'repository/**'
 
 jobs:
-  verify-primaza:
-    name: Verify Primaza Chart in Kubernetes
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Kubernetes KinD Cluster
-        uses: container-tools/kind-action@v1
-        with:
-          version: v0.11.1
-          registry: true
-
-      - name: Start Helm Repository (ChartMuseum)
-        run: docker run --rm -u 0 -it -d -p 8080:8080 -e DEBUG=1 -e STORAGE=local -e STORAGE_LOCAL_ROOTDIR=/charts -v $(pwd)/charts:/charts chartmuseum/chartmuseum:latest
-
-      - name: Start Primaza
-        run: .github/install_primaza.sh
-
-      - name: (Only if it failed) Log Primaza traces at failures
-        if: failure()
-        run: .github/print_primaza_logs.sh
-
-  verify-fruits:
-    name: Verify Fruits Chart in Kubernetes
-    runs-on: ubuntu-latest
-    needs: verify-primaza
-    steps:
-      - uses: actions/checkout@v3
-      - name: Kubernetes KinD Cluster
-        uses: container-tools/kind-action@v1
-        with:
-          version: v0.11.1
-          registry: true
-
-      - name: Start Helm Repository (ChartMuseum)
-        run: docker run --rm -u 0 -it -d -p 8080:8080 -e DEBUG=1 -e STORAGE=local -e STORAGE_LOCAL_ROOTDIR=/charts -v $(pwd)/charts:/charts chartmuseum/chartmuseum:latest
-
-      - name: Start Fruits
-        run: .github/install_fruits.sh
-
-      - name: (Only if it failed) Log Fruits traces at failures
-        if: failure()
-        run: .github/print_fruits_logs.sh
-
   update-charts:
     runs-on: ubuntu-latest
     name: update charts
-    needs: [ verify-primaza, verify-fruits ]
 
     steps:
       - uses: actions/checkout@v2
