@@ -21,7 +21,7 @@ update-fruits-app-chart:
 	git clone $$gitRepo $$repoFolder; \
 	cd $$repoFolder; \
 	git checkout $(branch); \
-	mvn clean install -DskipTests -Dquarkus.profile=helm; \
+	mvn clean install -DskipTests; \
 	chartVersion=`grep '^version:' $$chartFolder/Chart.yaml | awk '{print $2}' | sed -e 's/-SNAPSHOT//g' | sed -e 's/version: //g'` ; \
 	cd $(CURRENT_FOLDER); \
 	echo Chart $$chart - $$chartVersion; \
