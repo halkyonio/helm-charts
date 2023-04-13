@@ -76,6 +76,22 @@ Note that if you change the chart name to something different of `primaza-app`, 
 
 This chart deploys and exposes the Atomic Fruits service on Kubernetes including a Postgresql database.
 
+## Configuration
+
+The following table lists the configurable parameters and their default values.
+
+| Parameter | Description | Default |
+|  ---  |  ---  |  ---  |
+| `app.envs.DB_SERVICE_NAME` |   | fruits-app-db |
+| `app.host` | The host under which the application is going to be exposed. | atomic-fruits.127.0.0.1.nip.io |
+| `app.image` | The container image to use. | runner/atomic-fruits:1.0-SNAPSHOT |
+| `app.serviceBinding.enabled` | Determine if the resource should be installed or not. | true |
+| `app.serviceType` | The service type to use. | ClusterIP |
+| `db.auth.database` |   | fruits_database |
+| `db.auth.password` |   | pwd |
+| `db.auth.username` |   | user |
+| `db.enabled` | Flag to enable/disable the dependency 'postgresql' | true |
+
 To install it, you need to:
 - Set the container image you want to use. You can see all the versions in [here](quay.io/halkyonio/atomic-fruits).
 - Set the ingress host. Only if you want to publicly expose the application.
@@ -88,7 +104,7 @@ $ helm install fruits-app halkyonio/fruits-app --set app.image=quay.io/halkyonio
 
 By default, the `fruits-app` helm chart will use the database instance that is discovered using the Quarkus ServiceBinding extension (more information in [here](https://quarkus.io/guides/deploying-to-kubernetes#service_binding)). To use it, you need to create a secret resource containing the required data to connect to another Postgresql instance. Otherwise, if no database is discovered, the `fruits-app` helm chart will use [a Postgresql database](https://artifacthub.io/packages/helm/bitnami/postgresql) provided by Bitnami that is installed along with this Helm chart installation. 
 
-You can disable the installation of the Postgresql database by using `--set db.enabled=false` or configure this database instance by using `--set db.auth.database=<database name>`, `--set db.auth.username=<username>`, or `--set db.auth.database=<password>`. You can find the full set of configuration in [here](https://artifacthub.io/packages/helm/bitnami/postgresql?modal=values).
+You can disable the installation of the Postgresql database by using `--set db.enabled=false` or configure this database instance by using `--set db.auth.database=<database name>`, `--set db.auth.username=<username>`, or `--set db.auth.password=<password>`. You can find the full set of configuration in [here](https://artifacthub.io/packages/helm/bitnami/postgresql?modal=values).
 
 > **Important**: Note that if you change the chart name to something different of `fruits-app`, for example, to `my-app`, you also need to update the environmental property accordingly, by setting `--set app.envs.DB_SERVICE_NAME=my-app-db`
 
