@@ -2,29 +2,29 @@ apiVersion: v1
 entries:
   fruits-app:
   - apiVersion: v2
-    created: "2023-07-28T14:45:26.769086355Z"
+    created: "2023-07-28T15:03:59.974654186Z"
     dependencies:
     - alias: db
       condition: db.enabled
       name: postgresql
       repository: https://charts.bitnami.com/bitnami
       version: 11.9.1
-    digest: 530adae2dc066afe2c86a28dcf9097f919de416c82f84bf6dbdebb914ff53621
+    digest: 23c25c8abd18f9b52e84f59e89eccb030a4af2b413c0c24a339e16325ecac741
     name: fruits-app
     urls:
     - https://halkyonio.github.io/helm-charts/charts/fruits-app-1.0.tgz
     version: "1.0"
   primaza-app:
   - apiVersion: v2
-    created: "2023-07-28T14:45:26.773948023Z"
+    created: "2023-07-28T15:03:59.981228279Z"
     dependencies:
     - alias: db
       name: postgresql
       repository: https://charts.bitnami.com/bitnami
       version: 11.9.1
-    digest: 327e7ff72af5c927229d1474576111981b46a82857d72518b6fc9835c0f62331
+    digest: a1892859af3771e804ca25525994b35c6f7afbffe2fb7c40f9c76ccb378c3d0f
     name: primaza-app
     urls:
     - https://halkyonio.github.io/helm-charts/charts/primaza-app-0.0.1.tgz
     version: 0.0.1
-generated: "2023-07-28T14:45:26.762598463Z"
+generated: "2023-07-28T15:03:59.969601315Z"
